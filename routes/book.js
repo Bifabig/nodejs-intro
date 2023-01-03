@@ -1,8 +1,13 @@
 const express = require("express");
 const bookRouter = express.Router();
 const bookController = require("../controllers/BookController");
+const auth = require("../middleware/auth");
 
-bookRouter.route("/").get(bookController.index).post(bookController.store);
+bookRouter
+  .use(auth)
+  .route("/")
+  .get(bookController.index)
+  .post(bookController.store);
 
 bookRouter
   .route("/:id")
